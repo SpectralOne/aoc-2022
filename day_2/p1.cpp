@@ -6,7 +6,7 @@ int main(const int argc, char** argv) {
   fstream f(argv[1]);
   int s = 0;
 
-  while (std::getline(f, l)) {
+  while (getline(f, l)) {
     s += l[2] - 'X' + 1;
     int d = (l[2] - l[0] - 23 + 3) % 3;
 
@@ -15,7 +15,7 @@ int main(const int argc, char** argv) {
     if (d == 1) s += 6;
   }
 
-  std::cout << s << endl;
+  cout << s << endl;
 
   return 0;
 }

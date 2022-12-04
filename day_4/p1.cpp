@@ -12,7 +12,7 @@ int main(const int argc, char** argv) {
     }
   }
 
-  std::cout << s << endl;
+  cout << s << endl;
 
   return 0;
 }

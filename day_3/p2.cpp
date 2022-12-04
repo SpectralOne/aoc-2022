@@ -22,7 +22,7 @@ int main(const int argc, char** argv) {
     s += ch >= 'a' ? ch - 'a' + 1 : ch - 'A' + 27;
   }
 
-  std::cout << s << endl;
+  cout << s << endl;
 
   return 0;
 }

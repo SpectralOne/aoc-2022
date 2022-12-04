@@ -13,7 +13,7 @@ int main(const int argc, char** argv) {
     s += uc >= 'a' ? uc - 'a' + 1 : uc - 'A' + 27;
   }
 
-  std::cout << s << endl;
+  cout << s << endl;
 
   return 0;
 }
