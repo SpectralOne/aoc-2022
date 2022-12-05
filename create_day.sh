@@ -29,7 +29,7 @@ DIR="day_$(printf "%02d" "${DAY}")"
 
 if [[ -d "${DIR}" ]] && [[ ! "${REPLACE}" ]]
 then
-    echo "This day already exists. User -r|--replace to override!"
+    echo "This day already exists. Use -r|--replace to override!"
     exit 1
 else
     rm -rf ${DIR} && mkdir "${DIR}"
