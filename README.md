@@ -6,7 +6,7 @@ https://adventofcode.com/2022
 
 Add your cookie session to `.env` file or export `SESSION` first.
 
-Then you can create a folder with template and input with
+Then you can create a folder with template and untouched input with
 
 ```bash
 ./create_day.sh DAY YEAR
