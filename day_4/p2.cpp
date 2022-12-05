@@ -13,6 +13,7 @@ int main(const int argc, char** argv) {
   }
 
   cout << s << endl;
+  fclose(f);
 
   return 0;
 }
