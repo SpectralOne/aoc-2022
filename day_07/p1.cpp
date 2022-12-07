@@ -53,6 +53,17 @@ void solve_part_1(Dir *dir) {
   for (int i = 0; i < dir->size; ++i) solve_part_1(dir->children[i]);
 }
 
+void destroy_d(Dir *dir) {
+  Dir** childs = dir->children;
+  if (childs && dir->size != 0) {
+    for (int i = 0; i < dir->size; ++i) destroy_d(dir->children[i]);
+  }
+
+  if (childs) free(dir->children);
+  dir->name.~basic_string();
+  free(dir);
+}
+
 int main(const int argc, char **argv) {
   ifstream cin(argv[1]);
 
@@ -100,6 +111,7 @@ int main(const int argc, char **argv) {
   }
 
   solve_part_1(root);
+  destroy_d(root);
 
   cout << TOTAL << endl;
 

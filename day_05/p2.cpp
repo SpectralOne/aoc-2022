@@ -48,6 +48,7 @@ int main(const int argc, char** argv) {
     cout << x.top();
   }
 
+  if (line != NULL) free(line);
   fclose(f);
 
   return 0;
