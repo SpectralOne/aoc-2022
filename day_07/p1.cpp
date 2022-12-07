@@ -1,0 +1,107 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define CAPACITY_MULTIPLIER 2
+#define CAPACITY 100000
+
+size_t TOTAL = 0;
+
+typedef struct Dir {
+  string name;
+  size_t total;
+
+  Dir *parent;
+
+  Dir **children;
+  size_t size; // -> children.size()
+  size_t capacity; // -> children.capacity()
+} Dir;
+
+size_t total_size_d(Dir *dir) {
+  size_t total = dir->total;
+  for (int i = 0; i < dir->size; ++i) total += total_size_d(dir->children[i]);
+  return total;
+}
+
+void insert_d(Dir *dir, string name) {
+  if (dir->size == dir->capacity) {
+    dir->capacity = (dir->size + 1) * CAPACITY_MULTIPLIER;
+    dir->children =
+        (Dir **)realloc(dir->children, dir->capacity * sizeof(Dir *));
+  }
+
+  Dir *child = (Dir *)calloc(1, sizeof(Dir));
+  child->name = name;
+  child->parent = dir;
+
+  dir->children[dir->size++] = child;
+}
+
+Dir *find_d(Dir *dir, string name) {
+  for (int i = 0; i < dir->size; ++i) {
+    if (dir->children[i]->name == name) return dir->children[i];
+  }
+
+  return NULL;
+}
+
+// Main solve
+void solve_part_1(Dir *dir) {
+  size_t total = total_size_d(dir);
+  if (total < CAPACITY) TOTAL += total;
+
+  for (int i = 0; i < dir->size; ++i) solve_part_1(dir->children[i]);
+}
+
+int main(const int argc, char **argv) {
+  ifstream cin(argv[1]);
+
+  Dir *current = NULL;
+  Dir *root = (Dir *)calloc(1, sizeof(Dir));
+  root->name = "/";
+
+  vector<string> vl;
+  string l;
+  while (getline(cin, l)) vl.push_back(l);
+
+  int idx = 0;
+  string $;
+  string cmd;
+  while (idx < vl.size()) {
+    string line = vl[idx];
+    stringstream ss(line);
+
+    // $
+    ss >> $;
+
+    ss >> cmd;
+    if (cmd == "cd") {
+      string name;
+      ss >> name;
+
+      if (name == "/") current = root;
+      else if (name == "..") current = current->parent;
+      else current = find_d(current, name);
+
+      ++idx;
+    } else {
+      while (++idx < vl.size()) {
+        line = vl[idx];
+        if (line[0] == '$') break;
+
+        stringstream cmd_ss(line);
+        string cmd, args;
+        cmd_ss >> cmd >> args;
+
+        if (cmd == "dir") insert_d(current, args);
+        else current->total += atoi(cmd.c_str());
+      }
+    }
+  }
+
+  solve_part_1(root);
+
+  cout << TOTAL << endl;
+
+  return 0;
+}
