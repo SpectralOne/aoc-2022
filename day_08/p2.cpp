@@ -50,16 +50,15 @@ int main(const int argc, char** argv) {
   int rows = grid.size();
   int cols = grid[0].size();
 
-  vector<long> scores;
+  size_t max = 0;
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < cols; ++j) {
-      scores.push_back(get(i, j));
+      size_t score = get(i, j);
+      if (score > max) max = score;
     }
   }
 
-  sort(scores.begin(), scores.end());
-
-  cout << scores.back() << endl;
+  cout << max << endl;
 
   return 0;
 }

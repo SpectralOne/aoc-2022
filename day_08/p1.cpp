@@ -41,18 +41,8 @@ int main(const int argc, char** argv) {
   int cols = grid[0].size();
 
   int v = 0;
-  for (int i = 0; i < rows; ++i) {
-    for (int j = 0; j < cols; ++j) {
-      if (i == 0 || i == rows - 1) {
-        ++v;
-        continue;
-      }
-
-      if (j == 0 || j == cols - 1) {
-        ++v;
-        continue;
-      }
-
+  for (int i = 1; i < rows - 1; ++i) {
+    for (int j = 1; j < cols - 1; ++j) {
       const auto [up, down, left, right] = get(i, j);
 
       if (up == -1) {
@@ -77,7 +67,9 @@ int main(const int argc, char** argv) {
     }
   }
 
-  cout << v << endl;
+  int d = rows + cols;
+
+  cout << v + d + d - 4 << endl;
 
   return 0;
 }
