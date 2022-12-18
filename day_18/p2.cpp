@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define CUBE_DIMS 30
 #define Obsidian tuple<int, int, int>
 
 constexpr int dx[] = {1, -1, 0, 0, 0, 0};
@@ -30,7 +31,8 @@ int main(const int argc, char** argv) {
       int nx = x + dx[i];
       int ny = y + dy[i];
       int nz = z + dz[i];
-      if (nx < -1 || nx >= 30 || ny < -1 || ny >= 30 || nz < -1 || nz >= 30)
+      if (nx < -1 || nx >= CUBE_DIMS || ny < -1 || ny >= CUBE_DIMS || nz < -1 ||
+          nz >= CUBE_DIMS)
         continue;
 
       Obsidian next(nx, ny, nz);
