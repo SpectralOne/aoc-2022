@@ -20,8 +20,8 @@ int solve(int current, int opened, int time, bool elephant) {
 
   int ans = 0;
   // try to open
-  bool already_opened = ((opened & (1LL << current)) == 0);
-  if (already_opened && rates[current] > 0) {
+  bool not_opened = ((opened & (1LL << current)) == 0);
+  if (not_opened && rates[current] > 0) {
     int next = opened | (1LL << current);
     ans = max(ans, (time - 1) * rates[current] +
                        solve(current, next, time - 1, elephant));
@@ -100,6 +100,7 @@ __int32_t main(const int argc, char** argv) {
     }
   }
 
+  // ~1.86 GB onto stack xd
   DP = vector<int>((1 << nonzero) * sz * (sz + 1), -1);
 
   cout << "part 1: " << solve(0, 0, 30, false) << endl;
